@@ -57,7 +57,7 @@ async function getConfig() {
       : `${cfg.jiraBaseUrl}/rest/api/2/issue`; //데이터센터
   
     const body = buildIssuePayload(cfg, problem);
-    // Basic Auth (Cloud는 email:APITOKEN) / DC는 ID:PASSWORD 또는 토큰
+    // Basic Auth (Cloud는 email:APITOKEN) / DC는 ID: 토큰
     const authHeader = 'Bearer ' + '${cfg.authToken}';
   
     const res = await fetch(endpoint, {
