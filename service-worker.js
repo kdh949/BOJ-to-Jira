@@ -84,7 +84,7 @@ async function getConfig() {
   
     const data = await res.json();
     // Cloud/DC 모두 응답에 key/self 등이 포함됨
-    return { key: data.key, url: data.self?.replace('/rest/api/2/issue/', '/browse/').replace('/rest/api/3/issue/', '/browse/') || `${cfg.jiraBaseUrl}/browse/${data.key}` };
+    return { key: data.key, url: `${cfg.jiraBaseUrl}/browse/${data.key}` };
   }
   
   async function searchIssueByProblemNumber(cfg, problemNumber) {
