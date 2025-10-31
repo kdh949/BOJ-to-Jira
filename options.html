@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <title>Baekjoon → Jira 설정</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h1>Jira 연결 설정</h1>
+
+  <label>Jira Base URL (예: https://jira.example.com)</label>
+  <input id="jiraBaseUrl" type="url" placeholder="https://jira.example.com" />
+
+  <label>Jira 버전</label>
+  <select id="jiraVersion">
+    <option value="dc">Data Center/Server (REST v2)</option>
+    <option value="cloud">Cloud (REST v3)</option>
+  </select>
+
+  <label>프로젝트 키 (예: PROJ)</label>
+  <input id="projectKey" type="text" placeholder="PROJ" />
+
+  <label>이슈 타입 (예: Task / Story / Bug 등)</label>
+  <input id="issueTypeName" type="text" placeholder="Task" />
+
+  <fieldset>
+    <legend>인증</legend>
+    <p>Jira Data Center: 보통 <b>Basic Auth (ID:PW)</b>  
+       Jira Cloud: <b>이메일 + API 토큰</b> Base64(이메일:토큰). </p>
+    <label>사용자(또는 이메일)</label>
+    <input id="authUser" type="text" placeholder="user@example.com" />
+    <label>비밀번호 또는 API 토큰</label>
+    <input id="authToken" type="password" placeholder="******" />
+  </fieldset>
+
+  <fieldset>
+    <legend>필드 매핑(선택)</legend>
+    <label>문제 번호 저장할 커스텀 필드 ID (예: customfield_12345)</label>
+    <input id="customFieldId" type="text" placeholder="customfield_12345" />
+    <label>라벨(Labels) 기본값(쉼표 구분)</label>
+    <input id="defaultLabels" type="text" placeholder="baekjoon, ps" />
+  </fieldset>
+
+  <button id="save">저장</button>
+  <span id="status"></span>
+
+  <script src="options.js"></script>
+</body>
+</html>
