@@ -9,17 +9,38 @@ function scrape() {
     const titleEl = document.querySelector('#problem_title') || document.querySelector('span#problem_title');
     const title = titleEl ? titleEl.textContent.trim() : document.title.replace(/^\s*\d+\s*-\s*/,'').trim();
   
-    const getHtml = (sel) => {
+    const getJiraMarkup = (sel) => {
       const el = document.querySelector(sel);
       if (!el) return '';
-      // p들이 여러 개일 수 있어 innerText로 묶어서
-      return el.innerText.trim();
+      // innerHTML을 가져와서 Jira 마크업으로 변환
+      const clone = el.cloneNode(true);
+
+      // MathJax 수식 처리
+      clone.querySelectorAll('mjx-container').forEach(mjx => {
+        const copyText = mjx.querySelector('.mjx-copytext');
+        if (copyText?.textContent) {
+          let mathText = copyText.textContent.trim();
+          // 수식의 $...$를 {latex-inline}...{latex-inline}으로 변경
+          if (mathText.startsWith('$') && mathText.endsWith('$')) {
+            mathText = '{latex-inline}' + mathText.slice(1, -1) + '{latex-inline}';
+          }
+          mjx.replaceWith(document.createTextNode(mathText));
+        }
+      });
+
+      let html = clone.innerHTML;
+      // <p> 태그를 줄바꿈으로 변경
+      html = html.replace(/<p>/gi, '').replace(/<\/p>/gi, '\n');
+      // <code> 태그를 인라인 코드로 변경
+      html = html.replace(/<code>/gi, '{{').replace(/<\/code>/gi, '}}');
+      // 나머지 HTML 태그 제거
+      return html.replace(/<[^>]*>/g, '').trim();
     }; 
   
-    const description = getHtml('#problem_description') || '';
-    const input = getHtml('#problem_input') || '';
-    const output = getHtml('#problem_output') || '';
-    const limit = getHtml('#problem_limit') || ''; //제한 사항 추가
+    const description = getJiraMarkup('#problem_description') || '';
+    const input = getJiraMarkup('#problem_input') || '';
+    const output = getJiraMarkup('#problem_output') || '';
+    const limit = getJiraMarkup('#problem_limit') || ''; //제한 사항 추가
   
     // 첫 번째 샘플만 미리
     const sampleInEl = document.querySelector('pre#sample-input-1, pre#sampleinput1, pre[id^="sample-input"]');
