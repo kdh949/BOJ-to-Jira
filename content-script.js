@@ -19,6 +19,7 @@ function scrape() {
     const description = getHtml('#problem_description') || '';
     const input = getHtml('#problem_input') || '';
     const output = getHtml('#problem_output') || '';
+    const limit = getHtml('#problem_limit') || ''; //제한 사항 추가
   
     // 첫 번째 샘플만 미리
     const sampleInEl = document.querySelector('pre#sample-input-1, pre#sampleinput1, pre[id^="sample-input"]');
@@ -31,6 +32,16 @@ function scrape() {
         out: sampleOutEl ? sampleOutEl.innerText : ''
       });
     }
+
+    // Solved.ac 티어 정보 추출
+    const tierEl = document.querySelector('span[class*="solvedac-tier-name-"]');
+    let tier = null;
+    if (tierEl) {
+      const match = tierEl.className.match(/solvedac-tier-name-(\d+)/);
+      if (match && match[1]) {
+        tier = parseInt(match[1], 10);
+      }
+    }
   
     return {
       number,
@@ -39,7 +50,9 @@ function scrape() {
       description,
       input,
       output,
-      samples
+      samples,
+      limit,
+      tier
     };
   }
   

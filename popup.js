@@ -35,7 +35,13 @@ document.getElementById('create').addEventListener('click', async () => {
   const resp = await chrome.runtime.sendMessage({ type: 'CREATE_JIRA_ISSUE', problem: cachedProblem });
   const preview = document.getElementById('preview');
   if (resp?.ok) {
-    preview.innerHTML += `<hr/><b>생성 완료:</b> <a href="${resp.url}" target="_blank">${resp.key}</a>`;
+    // 새 탭으로 이슈 페이지 열기
+    chrome.tabs.create({ url: resp.url });
+    if (resp.existed) {
+      preview.innerHTML += `<hr/><b>이미 존재하는 이슈:</b> <a href="${resp.url}" target="_blank">${resp.key}</a>`;
+    } else {
+      preview.innerHTML += `<hr/><b>생성 완료:</b> <a href="${resp.url}" target="_blank">${resp.key}</a>`;
+    }
   } else {
     preview.innerHTML += `<hr/><b>실패:</b> ${resp?.error || '알 수 없는 오류'}`;
   }
