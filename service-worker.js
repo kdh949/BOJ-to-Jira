@@ -15,15 +15,15 @@ async function getConfig() {
   function buildIssuePayload(cfg, problem) {
     const summary = `[BOJ ${problem.number}] ${problem.title}`;
     const descriptionLines = [
-      `*문제 링크*: ${problem.url}`,
+      `* *문제 링크*: ${problem.url}`,
       '',
-      '*설명*',
+      'h2. *설명*',
       problem.description || '(없음)',
       '',
-      '*입력*',
+      'h2. *입력*',
       problem.input || '(없음)',
       '',
-      '*출력*',
+      'h2. *출력*',
       problem.output || '(없음)',
     ];
     if (problem.samples?.length) {
