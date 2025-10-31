@@ -48,7 +48,7 @@ async function getConfig() {
   }
   
   async function createIssue(cfg, problem) {
-    if (!cfg.jiraBaseUrl || !cfg.projectKey || !cfg.issueTypeName || !cfg.authUser || !cfg.authToken) {
+    if (!cfg.jiraBaseUrl || !cfg.projectKey || !cfg.issueTypeName || !cfg.authToken) { //!cfg.authUser 제외 PAT 사용으로 불필요
       throw new Error('설정이 불완전합니다. 옵션 페이지에서 Jira 연결 정보를 채워주세요.');
     }
   
@@ -58,7 +58,7 @@ async function getConfig() {
   
     const body = buildIssuePayload(cfg, problem);
     // Basic Auth (Cloud는 email:APITOKEN) / DC는 ID:PASSWORD 또는 토큰
-    const authHeader = 'Basic ' + btoa(`${cfg.authUser}:${cfg.authToken}`);
+    const authHeader = 'Bearer ' + '${cfg.authToken}';
   
     const res = await fetch(endpoint, {
       method: 'POST',

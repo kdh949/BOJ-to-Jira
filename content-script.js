@@ -14,7 +14,7 @@ function scrape() {
       if (!el) return '';
       // p들이 여러 개일 수 있어 innerText로 묶어서
       return el.innerText.trim();
-    };
+    }; 
   
     const description = getHtml('#problem_description') || '';
     const input = getHtml('#problem_input') || '';
