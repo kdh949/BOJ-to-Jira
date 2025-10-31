@@ -28,7 +28,7 @@ async function getConfig() {
     ];
     if (problem.samples?.length) {
       const s = problem.samples[0];
-      descriptionLines.push('', '*샘플 입력 1*', '```', s.in || '', '```', '', '*샘플 출력 1*', '```', s.out || '', '```');
+      descriptionLines.push('', '*샘플 입력 1*', '{code:none}', s.in || '', '{code}', '', '*샘플 출력 1*', '{code:none}', s.out || '', '{code}');
     }
   
     const fields = {
@@ -48,13 +48,13 @@ async function getConfig() {
   }
   
   async function createIssue(cfg, problem) {
-    if (!cfg.jiraBaseUrl || !cfg.projectKey || !cfg.issueTypeName || !cfg.authToken) { //!cfg.authUser 제외 PAT 사용으로 불필요
+    if (!cfg.jiraBaseUrl || !cfg.projectKey || !cfg.issueTypeName || !cfg.authToken) { //[CX-5] !cfg.authUser 제외, PAT 사용으로 불필요
       throw new Error('설정이 불완전합니다. 옵션 페이지에서 Jira 연결 정보를 채워주세요.');
     }
   
     const endpoint = cfg.jiraVersion === 'cloud'
-      ? `${cfg.jiraBaseUrl}/rest/api/3/issue`
-      : `${cfg.jiraBaseUrl}/rest/api/2/issue`;
+      ? `${cfg.jiraBaseUrl}/rest/api/3/issue` //클라우드
+      : `${cfg.jiraBaseUrl}/rest/api/2/issue`; //데이터센터
   
     const body = buildIssuePayload(cfg, problem);
     // Basic Auth (Cloud는 email:APITOKEN) / DC는 ID:PASSWORD 또는 토큰
