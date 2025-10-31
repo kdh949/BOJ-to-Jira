@@ -93,7 +93,7 @@ async function getConfig() {
       : `${cfg.jiraBaseUrl}/rest/api/2/search`;
   
     // JQL 쿼리: project, issuetype, 그리고 문제 번호가 저장된 커스텀 필드를 기준으로 검색
-    const jql = `project = "${cfg.projectKey}" AND issuetype = "${cfg.issueTypeName}" AND "${cfg.customFieldId}" ~ "${problemNumber}" ORDER BY created DESC`;
+    const jql = `project = "${cfg.projectKey}" AND issuetype = "${cfg.issueTypeName}" AND cf[10402] ~ "${problemNumber}" ORDER BY created DESC`;
   
     let authHeader;
     if (cfg.jiraVersion === 'dc') {
@@ -121,7 +121,7 @@ async function getConfig() {
       const issue = data.issues[0];
       return { 
         key: issue.key, 
-        url: issue.self?.replace('/rest/api/2/issue/', '/browse/').replace('/rest/api/3/issue/', '/browse/') || `${cfg.jiraBaseUrl}/browse/${issue.key}`,
+        url: `${cfg.jiraBaseUrl}/browse/${issue.key}`,
         existed: true 
       };
     }
@@ -162,13 +162,14 @@ async function getConfig() {
       try {
         const out = await findOrCreateIssue(cfg, res.problem);
         // 새 탭으로 이슈 페이지 열기
-        chrome.tabs.create({ url: out.url });
         chrome.notifications?.create({
           type: 'basic',
           iconUrl: 'icon48.png',
           title: out.existed ? 'Jira 이슈 찾음' : 'Jira 이슈 생성 완료',
           message: `${out.key} 이슈를 새 탭으로 엽니다.`
         });
+        chrome.tabs.create({ url: out.url });
+
       } catch (e) {
         console.error(e);
         chrome.notifications?.create({
