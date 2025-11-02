@@ -14,12 +14,22 @@ async function getConfig() {
   }
   
   function buildIssuePayload(cfg, problem) {
+    const tierMap = {
+      1: '브론즈 V', 2: '브론즈 IV', 3: '브론즈 III', 4: '브론즈 II', 5: '브론즈 I',
+      6: '실버 V', 7: '실버 IV', 8: '실버 III', 9: '실버 II', 10: '실버 I',
+      11: '골드 V', 12: '골드 IV', 13: '골드 III', 14: '골드 II', 15: '골드 I',
+      16: '플래티넘 V', 17: '플래티넘 IV', 18: '플래티넘 III', 19: '플래티넘 II', 20: '플래티넘 I',
+      21: '다이아몬드 V', 22: '다이아몬드 IV', 23: '다이아몬드 III', 24: '다이아몬드 II', 25: '다이아몬드 I',
+      26: '루비 V', 27: '루비 IV', 28: '루비 III', 29: '루비 II', 30: '루비 I',
+    };
+    const tierName = tierMap[problem.tier];
+
     const summary = `[BOJ ${problem.number}] ${problem.title}`;
     const descriptionLines = [
       `* *문제 링크*: ${problem.url}`,
     ];
-    if (problem.tier) {
-      descriptionLines.push(`* *난이도*: Solved.ac Tier ${problem.tier}`);
+    if (tierName) {
+      descriptionLines.push(`* *Solved.ac 난이도*: ${tierName}`);
     }
     descriptionLines.push(
       '',
@@ -54,22 +64,11 @@ async function getConfig() {
     }
   
     // 난이도 커스텀 필드 (드롭다운)
-    if (cfg.customFieldId_Level && problem.tier) {
-      const tierMap = {
-        1: '브론즈 V', 2: '브론즈 IV', 3: '브론즈 III', 4: '브론즈 II', 5: '브론즈 I',
-        6: '실버 V', 7: '실버 IV', 8: '실버 III', 9: '실버 II', 10: '실버 I',
-        11: '골드 V', 12: '골드 IV', 13: '골드 III', 14: '골드 II', 15: '골드 I',
-        16: '플래티넘 V', 17: '플래티넘 IV', 18: '플래티넘 III', 19: '플래티넘 II', 20: '플래티넘 I',
-        21: '다이아몬드 V', 22: '다이아몬드 IV', 23: '다이아몬드 III', 24: '다이아몬드 II', 25: '다이아몬드 I',
-        26: '루비 V', 27: '루비 IV', 28: '루비 III', 29: '루비 II', 30: '루비 I',
-      };
-      const tierName = tierMap[problem.tier];
-      if (cfg.customFieldId_Level && problem.tier &&tierName) {
-        // 드롭다운 필드는 보통 { "value": "옵션이름" } 형식
-        fields[cfg.customFieldId_Level] = { value: tierName };
-      }
+    if (cfg.customFieldId_Level && tierName) {
+      // 드롭다운 필드는 보통 { "value": "옵션이름" } 형식
+      fields[cfg.customFieldId_Level] = { value: tierName };
     }
-
+    
     return { fields };
   }
   
