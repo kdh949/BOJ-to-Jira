@@ -10,6 +10,7 @@ const els = {
     defaultLabels: document.getElementById('defaultLabels'),
     save: document.getElementById('save'),
     status: document.getElementById('status'),
+    customFieldId_Level: document.getElementById('customFieldId_Level')
   };
   
   (async function init() {
@@ -21,7 +22,8 @@ const els = {
       authUser: '',
       authToken: '',
       customFieldId: '',
-      defaultLabels: 'baekjoon'
+      defaultLabels: 'baekjoon',
+      customFieldId_Level: ''
     });
     Object.keys(cfg).forEach(k => {
       if (els[k]) els[k].value = cfg[k];
@@ -37,7 +39,8 @@ const els = {
       authUser: els.authUser.value.trim(),
       authToken: els.authToken.value,
       customFieldId: els.customFieldId.value.trim(),
-      defaultLabels: els.defaultLabels.value.trim()
+      defaultLabels: els.defaultLabels.value.trim(),
+      customFieldId_Level: els.customFieldId_Level.value.trim()
     };
     await chrome.storage.sync.set(payload);
     els.status.textContent = '저장됨';
