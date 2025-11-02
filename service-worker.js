@@ -50,11 +50,16 @@ async function getConfig() {
       descriptionLines.push('', '*샘플 입력 1*', '{code:none}', s.in || '', '{code}', '', '*샘플 출력 1*', '{code:none}', s.out || '', '{code}');
     }
   
+    const defaultLabels = (cfg.defaultLabels || 'baekjoon').split(',').map(s => s.trim()).filter(Boolean);
+    const problemTags = (problem.tags || []).map(tag => tag.replace(/\s/g, '_'));
+    // Set으로 중복 제거 후 배열로 변환
+    const finalLabels = [...new Set([...defaultLabels, ...problemTags])];
+
     const fields = {
       project: { key: cfg.projectKey },
       summary,
       issuetype: { name: cfg.issueTypeName },
-      labels: (cfg.defaultLabels || 'baekjoon').split(',').map(s => s.trim()).filter(Boolean),
+      labels: finalLabels,
       description: descriptionLines.join('\n')
     };
   

@@ -42,6 +42,10 @@ function scrape() {
         tier = parseInt(match[1], 10);
       }
     }
+
+    // 스포일러(알고리즘 분류) 태그 추출
+    const tagEls = document.querySelectorAll('a.spoiler-link');
+    const tags = Array.from(tagEls).map(el => el.textContent.trim());
   
     return {
       number,
@@ -52,7 +56,8 @@ function scrape() {
       output,
       samples,
       limit,
-      tier
+      tier,
+      tags
     };
   }
   
