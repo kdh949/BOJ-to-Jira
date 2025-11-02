@@ -24,7 +24,7 @@ async function getConfig() {
     };
     const tierName = tierMap[problem.tier];
 
-    const summary = `[BOJ ${problem.number}] ${problem.title}`;
+    const summary = `[BOJ ${problem.number}][${tierName}] ${problem.title}`;
     const descriptionLines = [
       `* *문제 링크*: ${problem.url}`,
     ];
