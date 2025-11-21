@@ -63,7 +63,7 @@ async function getConfig() {
       description: descriptionLines.join('\n')
     };
   
-    // 커스텀 필드에 문제번호 저장 (선택)
+    // 커스텀 필드에 문제번호 저장
     if (cfg.customFieldId) {
       fields[cfg.customFieldId] = problem.number || '';
     }
@@ -114,8 +114,8 @@ async function getConfig() {
       ? `${cfg.jiraBaseUrl}/rest/api/3/search`
       : `${cfg.jiraBaseUrl}/rest/api/2/search`;
   
-    // JQL 쿼리: project, issuetype, 그리고 문제 번호가 저장된 커스텀 필드를 기준으로 검색
-    const jql = `project = "${cfg.projectKey}" AND issuetype = "${cfg.issueTypeName}" AND cf[10402] ~ "${problemNumber}" ORDER BY created DESC`;
+    // JQL 쿼리: project, issuetype, 문제 번호가 저장된 커스텀 필드, 생성자를 기준으로 검색
+    const jql = `project = "${cfg.projectKey}" AND issuetype = "${cfg.issueTypeName}" AND cf[10402] ~ "${problemNumber}" AND reporter = currentUser() ORDER BY created DESC`;
   
     let authHeader;
     if (cfg.jiraVersion === 'dc') {
