@@ -14,6 +14,7 @@ async function getConfig() {
   }
   
   function buildIssuePayload(cfg, problem) {
+    //Solved.ac 티어 매핑
     const tierMap = {
       1: '브론즈 V', 2: '브론즈 IV', 3: '브론즈 III', 4: '브론즈 II', 5: '브론즈 I',
       6: '실버 V', 7: '실버 IV', 8: '실버 III', 9: '실버 II', 10: '실버 I',
@@ -186,7 +187,6 @@ async function getConfig() {
         // 새 탭으로 이슈 페이지 열기
         chrome.notifications?.create({
           type: 'basic',
-          iconUrl: 'icon48.png',
           title: out.existed ? 'Jira 이슈 찾음' : 'Jira 이슈 생성 완료',
           message: `${out.key} 이슈를 새 탭으로 엽니다.`
         });
@@ -196,7 +196,6 @@ async function getConfig() {
         console.error(e);
         chrome.notifications?.create({
           type: 'basic',
-          iconUrl: 'icon48.png',
           title: 'Jira 이슈 생성 실패',
           message: e.message
         });

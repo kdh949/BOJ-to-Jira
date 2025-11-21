@@ -18,8 +18,8 @@ document.getElementById('grab').addEventListener('click', async () => {
         <small>${cachedProblem.url}</small>
         <hr/>
         <div><b>설명</b><br/>${cachedProblem.description.slice(0, 500)}${cachedProblem.description.length>500?'...':''}</div>
-        <div><b>입력</b><br/>${cachedProblem.input.slice(0, 300)}${cachedProblem.input.length>300?'...':''}</div>
-        <div><b>출력</b><br/>${cachedProblem.output.slice(0, 300)}${cachedProblem.output.length>300?'...':''}</div>
+        <div><b>예시 입력</b><br/>${cachedProblem.input.slice(0, 300)}${cachedProblem.input.length>300?'...':''}</div>
+        <div><b>예시 출력</b><br/>${cachedProblem.output.slice(0, 300)}${cachedProblem.output.length>300?'...':''}</div>
       `;
       document.getElementById('create').disabled = false;
     } else {

@@ -1,4 +1,3 @@
-
 const els = {
     jiraBaseUrl: document.getElementById('jiraBaseUrl'),
     jiraVersion: document.getElementById('jiraVersion'),

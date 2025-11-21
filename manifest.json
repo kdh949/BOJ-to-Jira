@@ -1,10 +1,10 @@
 {
     "manifest_version": 3,
-    "name": "Baekjoon → Jira",
-    "description": "현재 보고 있는 백준 문제 페이지를 Jira 이슈로 생성합니다.",
-    "version": "1.1.0",
+    "name": "BOJ to Jira",
+    "description": "백준 온라인 저지 문제를 Jira 이슈로 생성합니다.",
+    "version": "1.0.0",
     "action": {
-      "default_title": "Baekjoon → Jira",
+      "default_title": "BOJ to Jira",
       "default_popup": "popup.html"
     },
     "options_page": "options.html",

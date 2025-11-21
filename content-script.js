@@ -1,7 +1,7 @@
 // 백준 문제 페이지에서 DOM 셀렉터로 정보 추출
-// 알려진 셀렉터: #problem_title, #problem_description, #problem_input, #problem_output
+// 셀렉터: #problem_title, #problem_description, #problem_input, #problem_output
 // 샘플 입출력: pre#sample-input-1, pre#sample-output-1 등
-// (여러 블로그/예제 기준)
+
 function scrape() {
     const url = location.href;
     const number = (url.match(/\/problem\/(\d+)/) || [])[1] || '';
@@ -43,7 +43,7 @@ function scrape() {
       }
     }
 
-    // 스포일러(알고리즘 분류) 태그 추출
+    // 알고리즘 분류 태그 추출
     const tagEls = document.querySelectorAll('a.spoiler-link');
     const tags = Array.from(tagEls).map(el => el.textContent.trim());
   

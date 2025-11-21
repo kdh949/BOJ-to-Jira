@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8" />
-  <title>Baekjoon → Jira 설정</title>
+  <title>BOJ to Jira 설정</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -25,11 +25,11 @@
 
   <fieldset>
     <legend>인증</legend>
-    <p>Jira Data Center: 보통 <b>Basic Auth (ID:PW)</b>  
+    <p>Jira Data Center: <b>(PAT만 사용)</b>  
        Jira Cloud: <b>이메일 + API 토큰</b> Base64(이메일:토큰). </p>
-    <label>[!!!PAT 사용으로 불필요!!!] 사용자(또는 이메일)</label>
-    <input readonly="readonly" id="authUser" type="text" placeholder="user@example.com" />
-    <label>비밀번호 또는 API 토큰</label>
+    <label>[클라우드일때만 입력] 사용자(또는 이메일)</label>
+    <input id="authUser" type="text" placeholder="user@example.com" />
+    <label>PAT 또는 API 토큰</label>
     <input id="authToken" type="password" placeholder="******" />
   </fieldset>
 
