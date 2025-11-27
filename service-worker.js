@@ -35,16 +35,16 @@ async function getConfig() {
     descriptionLines.push(
       '',
       'h2. *설명*',
-      problem.description || '(없음)',
+      problem.description ? `{panel}\n${problem.description}\n{panel}` : '(없음)',
       '',
       'h2. *입력*',
-      problem.input || '(없음)',
+      problem.input ? `{panel}\n${problem.input}\n{panel}` : '(없음)',
       '',
       'h2. *출력*',
-      problem.output || '(없음)',
+      problem.output ? `{panel}\n${problem.output}\n{panel}` : '(없음)',
       '',
       'h2. *제한*',
-      problem.limit || '(없음)',
+      problem.limit ? `{panel}\n${problem.limit}\n{panel}` : '(없음)',
     );
     if (problem.samples?.length) {
       const s = problem.samples[0];
